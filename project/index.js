@@ -22,6 +22,13 @@ app.get('/api', (req, res) => {
 // let bundler = new Bundler('./index.html');
 // app.use(bundler.middleware());
 
-http.listen(3000, function () {
+const mongodb = require('mongodb');
+const db = require('./src/models/db');
+const mongoose = require('mongoose');
+
+//mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect("mongodb://localhost/tag-it");
+
+http.listen(3000, function() {
     console.log('listening on PORT:3000')
 });
