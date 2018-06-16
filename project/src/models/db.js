@@ -7,3 +7,10 @@ MongoClient.connect(url, function(err, db) {
   console.log('Database created!');
   db.close();
 });
+
+const file_name = require('./models/file_database');
+const file_id = require('./models/file_database');
+const file_comment = require('./models/file_database');
+
+const file_tags = require('./models/file_database');
+const all_tags = require('.models/all_tags');
