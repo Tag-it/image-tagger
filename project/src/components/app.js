@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {BrowserRouter, Route} from 'react-router-dom'
 import ReactDom from 'react-dom';
 
-import Dashboard from './components/dashboard/dashboard.jsx'
+import Dashboard from './components/dashboard.jsx'
 
 
 console.log('inside app.jsx')
