@@ -3,7 +3,7 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const superagent = require('superagent');
-// require('dotenv').config();
+require('dotenv').config();
 
 const listFiles = require('./src/quickstart.js');
 
