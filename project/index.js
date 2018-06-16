@@ -9,7 +9,7 @@ const listFiles = require('./src/getAllDriveFiles.js');
 
 console.log('listFiles', listFiles);
 app.get('/api', (req, res) => {
-  listFiles()
+  listFiles()   // needs auth to be passed in
   .then(files => {
     res.send(files);
   })

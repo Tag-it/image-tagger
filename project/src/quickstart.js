@@ -70,7 +70,7 @@ function getAccessToken(oAuth2Client, callback) {
 function listFiles(auth) {
   const drive = google.drive({version: 'v3', auth});
   drive.files.list({
-    pageSize: 10,
+    //pageSize: 10,
     fields: 'nextPageToken, files(id, name)',
   }, (err, {data}) => {
     if (err) return console.log('The API returned an error: ' + err);
