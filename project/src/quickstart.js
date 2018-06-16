@@ -4,10 +4,12 @@ const {google} = require('googleapis');
 
 // If modifying these scopes, delete credentials.json.
 const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
-const TOKEN_PATH = 'credentials.json';
+const TOKEN_PATH = __dirname + 'credentials.json';
 
 // Load client secrets from a local file.
-fs.readFile('client_secret.json', (err, content) => {
+const filepath = __dirname + '/client_secret.json';
+console.log('filepath', filepath);
+fs.readFile(filepath, (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Drive API.
   authorize(JSON.parse(content), listFiles);
@@ -68,21 +70,29 @@ function getAccessToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
 function listFiles(auth) {
-  const drive = google.drive({version: 'v3', auth});
-  drive.files.list({
-    pageSize: 10,
-    fields: 'nextPageToken, files(id, name)',
-  }, (err, {data}) => {
-    if (err) return console.log('The API returned an error: ' + err);
-    const files = data.files;
-    if (files.length) {
-      console.log('Files:');
-      files.map((file) => {
-        console.log(`${file.name} (${file.id})`);
-        console.log(file);
-      });
-    } else {
-      console.log('No files found.');
-    }
+  return new Promise((resolve, reject) => {
+    const drive = google.drive({version: 'v3', auth});
+    drive.files.list({
+      pageSize: 10,
+      fields: 'nextPageToken, files(id, name)',
+    }, (err, res) => {
+      if (err) {
+        reject(err);
+        return console.log('The API returned an error: ' + err);
+      }
+      const files = res.data.files;
+      if (files.length) {
+        console.log('Files:');
+        files.map((file) => {
+          console.log(`${file.name} (${file.id})`);
+          console.log(file);
+        });
+      } else {
+        console.log('No files found.');
+      }
+      resolve(files);
+    });
   });
 }
+
+module.exports = listFiles;
