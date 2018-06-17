@@ -6,17 +6,17 @@
     height: 150px;
     overflow-y: auto;
 }
-.tag-menu a {
+.tag-menu button {
     background-color: #eee;
     color: black;
     display: block;
     padding: 12px;
     text-decoration: none;
 }
-.tag-menu a:hover {
+.tag-menu button:hover {
     background-color: #ccc;
 }
-.tag-menu a.active {
+.tag-menu button.active {
     background-color: #4CAF50;
     color: white;
 }
