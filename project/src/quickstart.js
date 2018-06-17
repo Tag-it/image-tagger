@@ -1,6 +1,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const request = require('superagent');
 
 // If modifying these scopes, delete credentials.json.
 const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
@@ -51,23 +52,29 @@ function getAuth(cb){
         scope: SCOPES,
       });
       console.log('Authorize this app by visiting this url:', authUrl);
-      const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-      });
-      rl.question('Enter the code from that page here: ', (code) => {
-        rl.close();
-        oAuth2Client.getToken(code, (err, token) => {
-          if (err) return callback(err);
-          oAuth2Client.setCredentials(token);
-          // Store the token to disk for later program executions
-          fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
-            if (err) console.error(err);
-            console.log('Token stored to', TOKEN_PATH);
-          });
-          callback(oAuth2Client);
+      request.get(authUrl)
+      .then(data => console.log(data))
+      .then(data => {
+
+        // const rl = readline.createInterface({
+          //   input: process.stdin,
+          //   output: process.stdout,
+          // });
+          // rl.question('Enter the code from that page here: ', (code) => {
+            //   rl.close();
+            oAuth2Client.getToken(code, (err, token) => {
+              if (err) {
+                console.log('error ', err.message)
+                return callback(err)};
+                oAuth2Client.setCredentials(token);
+                // Store the token to disk for later program executions
+                fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
+                  if (err) console.error(err);
+                  console.log('Token stored to', TOKEN_PATH);
+                });
+                callback(oAuth2Client);
+              })
         });
-      });
     }
     
     /**
@@ -78,7 +85,7 @@ function getAuth(cb){
       return new Promise((resolve, reject) => {
         const drive = google.drive({version: 'v3', auth});
         drive.files.list({
-          pageSize: 10,
+          //pageSize: 10,
           fields: 'nextPageToken, files(id, name)',
         }, (err, res) => {
           if (err) {
@@ -100,4 +107,5 @@ function getAuth(cb){
       });
     }
   }
-    module.exports = getAuth;
+  getAuth();  // Uncomment to reset OAuth
+module.exports = getAuth;
