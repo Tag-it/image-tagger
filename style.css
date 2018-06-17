@@ -1,5 +1,7 @@
 /* Tag Menu */
 .tag-menu {
+    /* display: inline-block; */
+    float: right;
     width: 200px;
     height: 150px;
     overflow-y: auto;
