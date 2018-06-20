@@ -1,8 +1,6 @@
 'use strict';
-
-const app = require('express')();
-const http = require('http').Server(app);
-const superagent = require('superagent');
+//import { BrowserRouter as Router, Route } from 'react-router-dom'
+const app = require ('express')();
 require('dotenv').config();
 
 const getAuth = require('./src/quickstart.js');
@@ -20,11 +18,16 @@ let files = new Promise( (resolve, reject) =>{
     return data;
 })
 
+
 // When you hit localhost:3000/api it will send you back the masterData
 
-app.get('/api', (req, res) => {
-  res.send(masterData)
-});
+// app.get('/api', (req, res) => {
+//   res.send(masterData.id)
+// });
+// app.get('/api/files-tag', (req, res) => {
+//   console.log('inside redirected endpoint')
+//   res.redirect('http://localhost:3000/api')
+// })
 
 // const Bundler = require('parcel-bundler');
 // let bundler = new Bundler('./index.html');
@@ -37,6 +40,6 @@ app.get('/api', (req, res) => {
 // //mongoose.connect(process.env.MONGODB_URI);
 // mongoose.connect("mongodb://localhost/tag-it");
 
-http.listen(3000, function() {
+app.listen(3000, function() {
     console.log('listening on PORT:3000')
 });
