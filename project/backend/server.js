@@ -3,7 +3,7 @@
 const app = require ('express')();
 require('dotenv').config();
 
-const getAuth = require('./src/quickstart.js');
+const getAuth = require('./quickstart.js');
 let masterData;
 
 // files variable will be a promise, but also has the data in it. This means you can use .then and .catch if you like after files. 
@@ -13,7 +13,7 @@ let files = new Promise( (resolve, reject) =>{
   return getAuth(resolve)
 })
   .then(data => {
-    console.log('data from index.js files', data)
+    //console.log('data from index.js files', data)
     masterData = data;
     return data;
 })
@@ -21,13 +21,18 @@ let files = new Promise( (resolve, reject) =>{
 
 // When you hit localhost:3000/api it will send you back the masterData
 
-// app.get('/api', (req, res) => {
-//   res.send(masterData.id)
-// });
-// app.get('/api/files-tag', (req, res) => {
-//   console.log('inside redirected endpoint')
-//   res.redirect('http://localhost:3000/api')
-// })
+app.get('/api/OAUTHRedirect', (req, res) => {
+  // res.send(<img src="https://drive.google.com/uc?export=view&id=1DG8usqKVEGbWe1ADLzcjFCx1Y6IoleR5" alt="">)
+  // res.end();
+  console.log(req.body);
+  console.log(req.header);
+});
+
+app.get('/api', (req, res) => {
+  res.send(masterData);
+  //res.send(<img src="https://drive.google.com/uc?export=view&id=1SK5pEBsxogrwL9mwuBHPXk7RT017YQvT" alt="">)
+  res.end;
+})
 
 // const Bundler = require('parcel-bundler');
 // let bundler = new Bundler('./index.html');

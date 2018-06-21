@@ -78,7 +78,7 @@ function getAuth(cb){
       return new Promise((resolve, reject) => {
         const drive = google.drive({version: 'v3', auth});
         drive.files.list({
-          pageSize: 10,
+          //pageSize: 10,
           fields: 'nextPageToken, files(id, name)',
         }, (err, res) => {
           if (err) {
@@ -87,10 +87,10 @@ function getAuth(cb){
           }
           const files = res.data.files;
           if (files.length) {
-            console.log('Files:');
+            //console.log('Files:');
             files.map((file) => {
-              console.log(`${file.name} (${file.id})`);
-              console.log(file);
+              //console.log(`${file.name} (${file.id})`);
+              //console.log(file);
             });
           } else {
             console.log('No files found.');
