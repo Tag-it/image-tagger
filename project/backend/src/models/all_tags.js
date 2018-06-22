@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 
-const allTagsSchema = new mongoose.Schema({
-    comments: String,
-    imageURL: String,
+const Image = new mongoose.Schema({
+    comments: {type: String},
+    imageURL: {type: String},
     tags: []
 });
 
-const All_tags = mongoose.model('All_tags', allTagsSchema);
-
-module.exports = All_tags;
+module.exports = mongoose.model('images', Image);
