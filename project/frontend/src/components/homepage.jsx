@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 
 class App extends Component {
   render() {
-    return (<div className="App">
+    return (
+      <div className="App">
       <h2>Tag-It</h2>
       <div className="topmenu">
         <a href="#home">Home</a>
