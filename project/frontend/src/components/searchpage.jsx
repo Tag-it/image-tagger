@@ -1,12 +1,13 @@
-import {React, Component} from'react';
+import {React, Component} from 'react';
 
 class SearchPage extends Component {
-    
-  
-    render() {
-      return (
-        <p> File Page </p>
-      )
+  render() {
+    return (
+      <div className="search-bar">
+        <a className="active" href="#home">Home</a>
+        <input type="text" placeholder="Search..">
+        </div>
+      );
     }
   }
 
